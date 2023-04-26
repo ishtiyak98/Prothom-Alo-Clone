@@ -1,13 +1,15 @@
 import React from "react";
 import "../../styles/Home.scss";
 import Navbar from "../../components/Navbar/Navbar";
+import NavItems from "../../components/Navbar/NavItems";
 
 const Home = () => {
   return (
     <>
-      <section className="max-w-[1280px] mx-auto">
-        <Navbar></Navbar>
-        <h2 className="heading-text bg-slate-700">কেন হত্যা, সেই জট খোলেনি</h2>
+      <Navbar></Navbar>
+      <NavItems></NavItems>
+      <section className="max-w-[1280px] mx-auto h-[2000px] ">
+        <h2 className="heading-text">কেন হত্যা, সেই জট খোলেনি</h2>
       </section>
     </>
   );

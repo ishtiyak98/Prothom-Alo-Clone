@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.scss";
 import Home from "./pages/Home/Home";
+import NavItems from "./components/Navbar/NavItems";
 
 function App() {
   return (

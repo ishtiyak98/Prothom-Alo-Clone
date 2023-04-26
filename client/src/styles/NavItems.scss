@@ -1,0 +1,16 @@
+.nav-container{
+    border-top: 1px;
+    border-bottom: 1px;
+    border-style: solid;
+    border-color: lightgray;
+    background-color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    
+    @apply mb-4 hidden lg:flex justify-between px-[250px] text-sm font-bold;
+
+    .nav-text{
+        @apply block px-4 cursor-pointer hover:text-blue-700 py-3
+    }
+}

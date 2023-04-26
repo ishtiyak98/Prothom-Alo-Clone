@@ -1,7 +1,7 @@
 @import "./config.scss";
 
 .header-container {
-    @apply pb-4 flex justify-between items-center;
+    @apply pb-4 flex justify-between items-center ;
 
     .left-icon {
         @apply flex items-center space-x-6;
