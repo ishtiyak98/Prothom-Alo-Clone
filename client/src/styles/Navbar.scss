@@ -11,18 +11,20 @@
         }
 
         .search-icon {
-            @apply text-2xl text-black cursor-pointer;
+            @apply text-2xl text-black cursor-pointer hidden lg:block;
         }
     }
 
     .logo-wrapper {
         width: 260px;
+
+        @apply w-[160px] lg:w-[260px];
     }
 
     .right-icon {
         display: flex;
         align-items: center;
-        @apply space-x-6;
+        @apply space-x-3 lg:space-x-6;
 
         .bell-icon {
             @apply text-2xl text-black cursor-pointer;

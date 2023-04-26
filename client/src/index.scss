@@ -30,3 +30,7 @@
 body {
   color: $text-color;
 }
+
+::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}

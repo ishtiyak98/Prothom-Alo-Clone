@@ -18,7 +18,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <section className="pt-4">
+    <section className="pt-4 px-2 lg:px-0">
       <header className="header-container max-w-[1280px] mx-auto">
         <div className="left-icon">
           <BiMenu className="menu-icon"></BiMenu>
