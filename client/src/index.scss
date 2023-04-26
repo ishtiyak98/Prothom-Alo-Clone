@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "surjo";
+  src: url("/src/assets/font/surjo.ttf");
+}
+
+@import "./styles/config.scss";
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@300;400;500;600;700;800&family=Tiro+Bangla:ital@0;1&display=swap");
+
+:root {
+  font-family: "Noto Sans Bengali", sans-serif;
+  font-size: 16px;
+  line-height: 1;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: $text-color;
+}

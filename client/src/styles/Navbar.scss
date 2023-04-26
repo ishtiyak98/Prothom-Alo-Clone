@@ -1,0 +1,45 @@
+@import "./config.scss";
+
+.header-container {
+    @apply pb-4 flex justify-between items-center;
+
+    .left-icon {
+        @apply flex items-center space-x-6;
+
+        .menu-icon {
+            @apply text-4xl text-black cursor-pointer;
+        }
+
+        .search-icon {
+            @apply text-2xl text-black cursor-pointer;
+        }
+    }
+
+    .logo-wrapper {
+        width: 260px;
+    }
+
+    .right-icon {
+        display: flex;
+        align-items: center;
+        @apply space-x-6;
+
+        .bell-icon {
+            @apply text-2xl text-black cursor-pointer;
+        }
+
+        .login-btn {
+            font-size: 16px;
+            font-weight: 600;
+            color: $blue;
+            border: 1px solid lightgray;
+            border-radius: 2px;
+            padding: 8px 24px;
+            transition: all 0.3s;
+
+            &:hover {
+                background-color: rgb(247, 247, 247);
+            }
+        }
+    }
+}
