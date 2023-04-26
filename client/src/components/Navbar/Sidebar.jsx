@@ -6,13 +6,19 @@ import TwitterSVG from "../../assets/social-icons/twitter-svgrepo-com.svg";
 import YoutubeSVG from "../../assets/social-icons/youtube-svgrepo-com.svg";
 import InstagramSVG from "../../assets/social-icons/instagram-1-svgrepo-com.svg";
 import "../../styles/Sidebar.scss";
+import { useDispatch } from "react-redux";
+import { hideSidebar } from "../../redux/sidebar/sidebarSlice";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
   return (
     <>
       <div className="nav-sidebar">
         <div className="nav-sidebar-content">
-          <div className="sidebar-close">
+          <div
+            className="sidebar-close"
+            onClick={() => dispatch(hideSidebar())}
+          >
             <IoMdClose></IoMdClose>
           </div>
           <nav className="sidebar-nav">
@@ -117,7 +123,7 @@ const Sidebar = () => {
               </Link>
             </div>
           </nav>
-          
+
           {/*!------- sidebar-social-icons -------*/}
           <div>
             <p>অনুসরণ করুন</p>

@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import Logo from "../../assets/logo.png";
 import { BiBell, BiMenu, BiSearchAlt2 } from "react-icons/bi";
 import "../../styles/Navbar.scss";
-import { Link } from "react-router-dom";
 import getBanglaDate from "../../utils/getBanglaDate";
+import { useDispatch } from "react-redux";
+import { showSidebar } from "../../redux/sidebar/sidebarSlice";
 const Navbar = () => {
+  const dispatch = useDispatch();
   const [currentDate, setCurrentDate] = useState("");
 
   useEffect(() => {
@@ -21,7 +23,7 @@ const Navbar = () => {
     <section className="pt-4 px-2 lg:px-0">
       <header className="header-container max-w-[1280px] mx-auto">
         <div className="left-icon">
-          <BiMenu className="menu-icon"></BiMenu>
+          <BiMenu className="menu-icon" onClick={()=>dispatch(showSidebar())}></BiMenu>
           <BiSearchAlt2 className="search-icon"></BiSearchAlt2>
         </div>
         <div className="logo-wrapper">

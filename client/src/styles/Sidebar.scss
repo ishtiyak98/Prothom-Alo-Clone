@@ -21,6 +21,29 @@
         -webkit-animation-name: leftAnimation;
         -webkit-animation-duration: 0.3s;
 
+        /* Add Animation */
+        @-webkit-keyframes leftAnimation {
+            from {
+                left: -300px;
+                opacity: 0;
+            }
+            to {
+                left: 0;
+                opacity: 1;
+            }
+        }
+
+        @keyframes leftAnimation {
+            from {
+                left: -300px;
+                opacity: 0;
+            }
+            to {
+                left: 0;
+                opacity: 1;
+            }
+        }
+
         @apply w-[100%] lg:w-[280px] min-h-[100%];
 
         .sidebar-close {
