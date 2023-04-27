@@ -5,6 +5,7 @@ import NavItems from "../../components/Navbar/NavItems";
 import Sidebar from "../../components/Navbar/Sidebar";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import BulletinNews from "../../components/HomeComponents/BulletinNews/BulletinNews";
 
 const Home = () => {
   const {showSidebar} = useSelector(state => state.sidebar)
@@ -17,7 +18,7 @@ const Home = () => {
       <Navbar></Navbar>
       <NavItems></NavItems>
       <section className="max-w-[1280px] mx-auto h-[2000px] ">
-        <h2 className="heading-text">কেন হত্যা, সেই জট খোলেনি</h2>
+        <BulletinNews></BulletinNews>
       </section>
       {showSideNav && <Sidebar></Sidebar>}
     </>

@@ -1,7 +1,8 @@
 @import "./config.scss";
+@import "./mixins/responsive";
 
 .header-container {
-    @apply pb-4 flex justify-between items-center ;
+    @apply pb-4 flex justify-between items-center;
 
     .left-icon {
         @apply flex items-center space-x-6;
@@ -16,9 +17,11 @@
     }
 
     .logo-wrapper {
-        width: 260px;
+        width: 160px;
 
-        @apply w-[160px] lg:w-[260px];
+        @include lg {
+            width: 260px;
+        }
     }
 
     .right-icon {
