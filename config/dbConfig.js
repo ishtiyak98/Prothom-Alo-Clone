@@ -7,7 +7,7 @@ mongoose.connect(DB_STRING);
 const connection = mongoose.connection;
 
 connection.on("connected", () => {
-  console.log("MongoDB connected");
+  console.log("MongoDB connected!");
 });
 
 connection.on("error", (err) => {
