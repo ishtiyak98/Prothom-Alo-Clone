@@ -17,7 +17,7 @@ const Home = () => {
     <>
       <Navbar></Navbar>
       <NavItems></NavItems>
-      <section className="max-w-[1280px] mx-auto h-[2000px] ">
+      <section className="max-w-[1280px] mx-auto h-[2000px]">
         <BulletinNews></BulletinNews>
       </section>
       {showSideNav && <Sidebar></Sidebar>}

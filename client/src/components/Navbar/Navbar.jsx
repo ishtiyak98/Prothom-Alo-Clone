@@ -5,6 +5,8 @@ import "../../styles/Navbar.scss";
 import getBanglaDate from "../../utils/getBanglaDate";
 import { useDispatch } from "react-redux";
 import { showSidebar } from "../../redux/sidebar/sidebarSlice";
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
   const dispatch = useDispatch();
   const [currentDate, setCurrentDate] = useState("");
@@ -34,7 +36,7 @@ const Navbar = () => {
             <BiBell className="bell-icon"></BiBell>
           </div>
           <div>
-            <button className="login-btn">Login</button>
+            <Link to={"/login"} className="login-btn">Login</Link>
           </div>
         </div>
       </header>

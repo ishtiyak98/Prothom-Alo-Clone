@@ -1,0 +1,121 @@
+@import "./config.scss";
+@import "./mixins/responsive";
+
+.login-container {
+    width: 90%;
+    padding: 40px 15px;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+
+    @include lg {
+        width: 520px;
+        padding: 40px 30px;
+    }
+
+    .logo-wrapper {
+        width: 150px;
+        margin: 0 auto;
+    }
+
+    .login-title {
+        color: $blue;
+        text-align: center;
+        font-family: serif;
+        font-size: 26px;
+        font-weight: 600;
+    }
+
+    .login-input-area {
+        padding: 0px 05px;
+
+        @include lg {
+            padding: 0px 40px;
+        }
+
+        .form-container {
+            .input-field {
+                width: 100%;
+                padding: 12px 8px;
+                outline: none;
+                border: 1px solid lightgray;
+                border-radius: 4px;
+            }
+            .input-error {
+                font-family: serif;
+                font-size: 15px;
+                color: $red;
+                margin-top: 6px;
+                margin-left: 2px;
+            }
+
+            .submit-btn {
+                width: 100%;
+                padding: 12px 8px;
+                outline: none;
+                font-size: 20px;
+                font-weight: 600;
+                color: white;
+                background-color: $red;
+
+                &:hover {
+                    background-color: lighten($color: $red, $amount: 5);
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .forgot-pass-text {
+            display: block;
+            text-align: center;
+            font-family: serif;
+            font-size: 15px;
+            font-weight: 500;
+            color: $blue;
+            cursor: pointer;
+        }
+
+        .register-text {
+            text-align: center;
+            font-family: serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: black;
+
+            @include lg{
+                font-size: 18px;
+            }
+
+            .register-link {
+                color: $red;
+                text-decoration: underline;
+            }
+        }
+
+        .google-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #4285f4;
+            padding: 10px 0px;
+
+            &:hover {
+                cursor: pointer;
+                background-color: lighten($color: #4285f4, $amount: 5);
+            }
+
+            .google-logo {
+                width: 25px;
+                background-color: white;
+                border-radius: 100%;
+                padding: 4px;
+            }
+
+            .google-logo-text {
+                color: white;
+                font-family: serif;
+                font-size: 20px;
+                font-weight: 500;
+            }
+        }
+    }
+}
