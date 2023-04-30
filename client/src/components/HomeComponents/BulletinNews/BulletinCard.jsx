@@ -2,7 +2,6 @@ import React from "react";
 
 const BulletinCard = ({ news, index }) => {
   const { title, featureImg, text } = news;
-  console.log(index);
   return (
     <>
       {index === 0 || index === 1 ? (

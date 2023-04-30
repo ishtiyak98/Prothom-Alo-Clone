@@ -1,4 +1,5 @@
 const getBanglaDate = (day, date, month, year) => {
+  console.log(day, date, month, year);
   const dayName = [
     "রবিবার",
     "সোমবার",
@@ -26,7 +27,7 @@ const getBanglaDate = (day, date, month, year) => {
 
   const banglaMonth = monthBD[month - 1];
   const banglaDay = dayName[day];
-  const banglaDate = numBD[date.toString().split("")[0]] + numBD[date.toString().split("")[1]];
+  const banglaDate = numBD[date.toString().split("")[0]] + (date.toString().split("")[1] ? numBD[date.toString().split("")[1]] :"");
   const banglaYear = numBD[year.toString().split("")[0]] + numBD[year.toString().split("")[1]] + numBD[year.toString().split("")[2]] + numBD[year.toString().split("")[3]];
 
   return (banglaDay + "," + " " + banglaDate + " " + banglaMonth + " " + banglaYear);
