@@ -4,15 +4,19 @@ import "../../styles/Login.scss";
 import Logo from "../../assets/logo.png";
 import { IoIosArrowBack } from "react-icons/io";
 import GoogleLogo from "../../assets/social-icons/google-icon.svg";
+import checkValidEmail from "../../utils/checkValidEmail";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [emailError, setEmailError] = useState("");
   const [passError, setPassError] = useState("");
 
-  const emailEmptyCheck = (email) => {
+  const emailCheck = (email) => {
+    const isValid = checkValidEmail(email);
     if (email === "") {
       setEmailError("Email address is required");
+    } else if (!isValid) {
+      setEmailError("Not a valid email");
     } else {
       setEmailError("");
     }
@@ -21,13 +25,15 @@ const Login = () => {
   const passEmptyCheck = (password) => {
     if (password === "") {
       setPassError("Password is required");
+    } else if (password.length < 6 && password.length !== 0) {
+      setPassError("Please Enter minimum 6 characters");
     } else {
       setPassError("");
     }
   };
 
   const handleEmailChange = (e) => {
-    emailEmptyCheck(e.target.value);
+    emailCheck(e.target.value);
     setFormData({ ...formData, email: e.target.value });
   };
 
@@ -41,10 +47,10 @@ const Login = () => {
     const email = formData.email;
     const password = formData.password;
 
-    emailEmptyCheck(email);
+    emailCheck(email);
     passEmptyCheck(password);
 
-    if (email && password) {
+    if (!emailError && !passError && email && password) {
       console.log(formData);
     }
   };
@@ -53,9 +59,11 @@ const Login = () => {
     <>
       <section className="max-w-[1280px] mx-auto h-screen flex items-center justify-center ">
         <div className="login-container space-y-6">
-          <div className="flex items-center">
-            <IoIosArrowBack className="font-bold text-lg"></IoIosArrowBack>
-            <Link to={"/"}>Back</Link>
+          <div>
+            <Link to={"/"} className="flex items-center">
+              <IoIosArrowBack className="font-bold text-lg mb-1"></IoIosArrowBack>
+              <p>Back</p>
+            </Link>
           </div>
           <div className="logo-wrapper">
             <img src={Logo} alt="" />
@@ -116,7 +124,7 @@ const Login = () => {
               <p className="text-center">or</p>
             </div>
             <div className="google-login space-x-4">
-              <img src={GoogleLogo} alt="" className="google-logo"/>
+              <img src={GoogleLogo} alt="" className="google-logo" />
               <p className="google-logo-text">Continue with Google</p>
             </div>
           </div>
