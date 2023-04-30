@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "../../styles/Login.scss";
 import Logo from "../../assets/logo.png";
 import { IoIosArrowBack } from "react-icons/io";
+import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import GoogleLogo from "../../assets/social-icons/google-icon.svg";
 import checkValidEmail from "../../utils/checkValidEmail";
 
@@ -10,6 +11,7 @@ const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [emailError, setEmailError] = useState("");
   const [passError, setPassError] = useState("");
+  const [passShow, setPassShow] = useState(false);
 
   const emailCheck = (email) => {
     const isValid = checkValidEmail(email);
@@ -40,6 +42,10 @@ const Login = () => {
   const handlePassChange = (e) => {
     passEmptyCheck(e.target.value);
     setFormData({ ...formData, password: e.target.value });
+  };
+
+  const handlePassShow = () => {
+    setPassShow(!passShow);
   };
 
   const handleLogin = (e) => {
@@ -86,14 +92,26 @@ const Login = () => {
                   {emailError && <p className="input-error">{emailError}</p>}
                 </div>
                 <div>
-                  <input
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    id="password"
-                    className="input-field"
-                    onChange={(e) => handlePassChange(e)}
-                  />
+                  <div className="password-field">
+                    <input
+                      type={passShow ? "text" : "password"}
+                      placeholder="Password"
+                      name="password"
+                      id="password"
+                      className="input-field input-pass-field"
+                      onChange={(e) => handlePassChange(e)}
+                    />
+                    <div
+                      className="password-show-item"
+                      onClick={handlePassShow}
+                    >
+                      {passShow ? (
+                        <FaRegEye></FaRegEye>
+                      ) : (
+                        <FaRegEyeSlash></FaRegEyeSlash>
+                      )}
+                    </div>
+                  </div>
                   {passError && <p className="input-error">{passError}</p>}
                 </div>
                 <div>
