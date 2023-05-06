@@ -1,0 +1,10 @@
+@import "../mixins/responsive";
+
+.dashboard-data-container {
+    padding: 20px 20px;
+
+    @include lg{
+        padding: 30px 60px;
+    }
+    
+}

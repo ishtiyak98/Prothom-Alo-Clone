@@ -1,0 +1,30 @@
+@import "../mixins/responsive";
+
+.sidebar-container {
+    // width: 100%;
+    background-color: #151529;
+    transition: all 0.25s;
+    height: 100%;
+    
+    @include lg {
+        width: 250px;
+    }
+
+    .sidebar-link-container {
+        width: 250px;
+        padding: 25px;
+
+        .sidebar-link {
+            display: flex;
+            align-items: end;
+            padding: 10px 0px;
+            color: rgb(185, 185, 185);
+            @apply space-x-2;
+
+            &:hover {
+                color: white;
+                cursor: pointer;
+            }
+        }
+    }
+}

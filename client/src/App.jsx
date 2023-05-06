@@ -8,6 +8,7 @@ import Registration from "./pages/Registration/Registration";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import MyProfile from "./pages/Dashboard/MyProfile";
 import EditProfile from "./pages/Dashboard/EditProfile";
+import AddNews from "./pages/Dashboard/AddNews";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function App() {
           element={<Registration></Registration>}
         ></Route>
         <Route path="/dashboard" element={<Dashboard></Dashboard>}>
+          <Route path="add-news" element={<AddNews></AddNews>}></Route>
           <Route path="my-profile" element={<MyProfile></MyProfile>}></Route>
           <Route path="edit-profile" element={<EditProfile></EditProfile>}></Route>
         </Route>

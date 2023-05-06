@@ -1,0 +1,70 @@
+@import "../config";
+@import "../mixins/responsive";
+
+.add-news-container {
+    .heading-text {
+        font-size: 26px;
+        color: black;
+        margin-bottom: 20px;
+    }
+
+    .form-container {
+        padding: 30px;
+        background-color: white;
+        border-radius: 4px;
+        box-shadow: 1px 1px 7px rgba(154, 154, 204, 0.1);
+        @apply space-y-4;
+        .input-field {
+            width: 100%;
+            padding: 12px 8px;
+            outline: none;
+            border: 1px solid lightgray;
+            border-radius: 4px;
+        }
+
+        .images-selection-input {
+            width: 100%;
+            input[type="file"] {
+                display: none;
+            }
+
+            label[for="images"] {
+                display: block;
+                padding: 30px;
+                min-height: 150px;
+                border: 1px solid lightgray;
+
+                &:hover {
+                    cursor: pointer;
+                    color: $blue;
+                }
+            }
+        }
+
+        .input-error {
+            font-family: serif;
+            font-size: 15px;
+            color: $red;
+            margin-top: 6px;
+            margin-left: 2px;
+        }
+
+        .featured-img-container {
+            border: 1px solid lightgray;
+            width: 100%;
+
+            .featured-img-selection {
+                padding: 30px;
+                
+                .featured-img-grid{
+                    @apply grid grid-cols-2 lg:grid-cols-4 gap-6;
+                }
+            }
+            .featured-images {
+                display: block;
+                padding: 12px;
+                border: 1px solid lightgray;
+            }
+        }
+    }
+}

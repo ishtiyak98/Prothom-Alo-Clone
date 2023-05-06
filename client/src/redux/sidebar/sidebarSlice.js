@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   showSidebar: false,
+  dashboardSidebar: true,
 };
 
 const sidebarSlice = createSlice({
@@ -14,8 +15,12 @@ const sidebarSlice = createSlice({
     hideSidebar: (state) => {
       state.showSidebar = false;
     },
+    toggleDashboardSidebar: (state) => {
+      state.dashboardSidebar = !state.dashboardSidebar;
+    },
   },
 });
 
-export const { showSidebar, hideSidebar } = sidebarSlice.actions;
+export const { showSidebar, hideSidebar, toggleDashboardSidebar } =
+  sidebarSlice.actions;
 export default sidebarSlice.reducer;
