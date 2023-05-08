@@ -5,7 +5,8 @@
     background-color: #151529;
     transition: all 0.25s;
     height: 100%;
-    
+    z-index: 50;
+
     @include lg {
         width: 250px;
     }

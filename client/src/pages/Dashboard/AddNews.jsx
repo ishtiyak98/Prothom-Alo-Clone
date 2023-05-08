@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import "../../styles/Dashboard/AddNews.scss";
 import { BsCheckCircle, BsCheckCircleFill, BsImage } from "react-icons/bs";
-import { IoIosArrowDropdown } from "react-icons/io";
+import { IoIosArrowDropdown, IoIosCloseCircleOutline } from "react-icons/io";
 import JoditEditor from "jodit-react";
 
 const AddNews = () => {
@@ -19,6 +19,9 @@ const AddNews = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
 
+  const [tags, setTags] = useState([]);
+  const [tagsError, setTagsError] = useState("");
+
   //!------------- Multiple Image Select -------------
   const onSelectFiles = (e) => {
     const imageList = Array.from(e.target.files);
@@ -35,6 +38,7 @@ const AddNews = () => {
     }
   };
 
+  //!------------- Multiple Category Select -------------
   const handleSelectedCategories = (value) => {
     if (selectedCategories.find((item) => item === value)) {
       setSelectedCategories(
@@ -45,7 +49,27 @@ const AddNews = () => {
     }
   };
 
-  console.log(selectedCategories);
+  //!------------- Tags Select -------------
+  const addTags = (e) => {
+    if (e.key === "Enter" && e.target.value !== "") {
+      if (tags.length === 5) {
+        setTagsError("You can't add more than 5 tags");
+      } else {
+        setTagsError("");
+        setTags([...tags, e.target.value]);
+      }
+      e.target.value = "";
+    } else if (e.key !== "Enter") {
+      return;
+    }
+  };
+
+  const deleteTag = (index) => {
+    setTagsError("");
+    setTags(tags.filter((tag, i) => i !== index));
+  };
+
+  console.log(tags);
 
   return (
     <section className="add-news-container">
@@ -197,6 +221,35 @@ const AddNews = () => {
               tabIndex={1} // tabIndex of textarea
               onChange={(newContent) => setContent(newContent)}
             />
+          </div>
+          {/*--------- Add Tags Container ---------*/}
+          <div>
+            <div className="tag-container">
+              {tags.length > 0 && (
+                <div className="all-tags">
+                  {tags.map((tag, index) => (
+                    <div key={index} className="tag-list">
+                      <p className="mt-[1px]">{tag}</p>{" "}
+                      <IoIosCloseCircleOutline
+                        className="delete-tag-icon text-xl"
+                        onClick={() => deleteTag(index)}
+                      ></IoIosCloseCircleOutline>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <div className="tag-input">
+                <input
+                  type="text"
+                  placeholder="Insert some tags..."
+                  name="tagInput"
+                  id="tagInput"
+                  onKeyDown={(e) => addTags(e)}
+                  className="input-field"
+                />
+                {tagsError && <p className="input-error">{tagsError}</p>}
+              </div>
+            </div>
           </div>
         </form>
       </div>
