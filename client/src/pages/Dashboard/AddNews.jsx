@@ -202,6 +202,58 @@ const AddNews = () => {
                   </div>
                   <div className="select-text">Item 3</div>
                 </div>
+                <div
+                  className="dropdown-list"
+                  onClick={() => handleSelectedCategories("item2")}
+                >
+                  <div className="checkbox">
+                    {selectedCategories.find((item) => item === "item2") ? (
+                      <BsCheckCircleFill className="text-xl"></BsCheckCircleFill>
+                    ) : (
+                      <BsCheckCircle className="text-xl"></BsCheckCircle>
+                    )}
+                  </div>
+                  <div className="select-text">Item 2</div>
+                </div>
+                <div
+                  className="dropdown-list"
+                  onClick={() => handleSelectedCategories("item2")}
+                >
+                  <div className="checkbox">
+                    {selectedCategories.find((item) => item === "item2") ? (
+                      <BsCheckCircleFill className="text-xl"></BsCheckCircleFill>
+                    ) : (
+                      <BsCheckCircle className="text-xl"></BsCheckCircle>
+                    )}
+                  </div>
+                  <div className="select-text">Item 2</div>
+                </div>
+                <div
+                  className="dropdown-list"
+                  onClick={() => handleSelectedCategories("item2")}
+                >
+                  <div className="checkbox">
+                    {selectedCategories.find((item) => item === "item2") ? (
+                      <BsCheckCircleFill className="text-xl"></BsCheckCircleFill>
+                    ) : (
+                      <BsCheckCircle className="text-xl"></BsCheckCircle>
+                    )}
+                  </div>
+                  <div className="select-text">Item 2</div>
+                </div>
+                <div
+                  className="dropdown-list"
+                  onClick={() => handleSelectedCategories("item2")}
+                >
+                  <div className="checkbox">
+                    {selectedCategories.find((item) => item === "item2") ? (
+                      <BsCheckCircleFill className="text-xl"></BsCheckCircleFill>
+                    ) : (
+                      <BsCheckCircle className="text-xl"></BsCheckCircle>
+                    )}
+                  </div>
+                  <div className="select-text">Item 2</div>
+                </div>
               </div>
             </div>
             <div className="w-full">
