@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 const getBanglaDate = (day, date, month, year) => {
   console.log(day, date, month, year);
   const dayName = [

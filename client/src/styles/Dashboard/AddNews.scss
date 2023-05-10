@@ -20,7 +20,7 @@
         }
         .input-field {
             width: 100%;
-            height: 100%;
+            // height: 100%;
             padding: 12px 8px;
             outline: none;
             border: 1px solid lightgray;
@@ -55,12 +55,13 @@
         }
 
         .featured-img-container {
-            border: 1px solid lightgray;
             width: 100%;
 
             .featured-img-selection {
                 padding: 30px;
-
+                width: 100%;
+                min-height: 150px;
+                border: 1px solid lightgray;
                 .featured-img-grid {
                     @apply grid grid-cols-2 lg:grid-cols-4 gap-6;
                 }
@@ -77,8 +78,7 @@
 
             .select-btn {
                 width: 100%;
-                height: 100%;
-                padding: 12px 8px;
+                padding: 10px 8px;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
@@ -95,7 +95,7 @@
                 position: absolute;
                 top: 55px;
                 width: 100%;
-                height: 225px;
+                max-height: 225px;
                 overflow-y: scroll;
                 z-index: 5;
                 border: 1px solid lightgray;
@@ -127,6 +127,32 @@
                         cursor: pointer;
                         background-color: $blue;
                     }
+
+                    &:hover .checkbox {
+                        color: white;
+                    }
+
+                    .checkbox {
+                        color: $deep-blue;
+                    }
+                }
+            }
+        }
+        .date-time {
+            width: 100%;
+            position: relative;
+
+            .clock-sync-btn {
+                font-size: 18px;
+                position: absolute;
+                top: 50%;
+                right: 2%;
+                transform: translate(0%, -50%);
+                z-index: 5;
+                transition: all 0.2s;
+                &:hover {
+                    color: $blue;
+                    cursor: pointer;
                 }
             }
         }
@@ -163,6 +189,25 @@
                             cursor: pointer;
                         }
                     }
+                }
+            }
+        }
+        .submit-btn-container {
+            display: flex;
+            justify-content: center;
+            @include lg {
+                justify-content: flex-start;
+            }
+            .submit-btn {
+                color: $off-white;
+                padding: 12px 36px;
+                border-radius: 4px;
+                background-color: $deep-blue;
+
+                &:hover {
+                    color: white;
+                    cursor: pointer;
+                    background-color: lighten($deep-blue, 20);
                 }
             }
         }

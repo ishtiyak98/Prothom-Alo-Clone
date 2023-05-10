@@ -2,7 +2,7 @@ import React from "react";
 import { HiMenu } from "react-icons/hi";
 import { useDispatch } from "react-redux";
 import { toggleDashboardSidebar } from "../../../redux/sidebar/sidebarSlice";
-import Logo from "../../../assets/logo.png";
+import Logo from "../../../assets/logo/prothomalo_logo_eng.png";
 import { Link } from "react-router-dom";
 
 const DashboardNav = () => {
@@ -13,7 +13,7 @@ const DashboardNav = () => {
         <p>Home</p>
       </div>
       <div>
-        <div className="w-[200px]">
+        <div className="w-[130px]">
           <Link to="/">
             <img src={Logo} alt="" />
           </Link>
