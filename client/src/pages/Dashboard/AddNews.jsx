@@ -26,6 +26,14 @@ const AddNews = () => {
     category: [],
   });
 
+  let formError = {
+    titleError: false,
+    featureImgError: false,
+    categoriesError: false,
+    textError: false,
+    imagesError: false,
+    tagsError: false,
+  };
   const [titleError, setTitleError] = useState("");
   const [featureImgError, setFeatureImgError] = useState("");
   const [categoriesError, setCategoriesError] = useState("");
@@ -66,9 +74,11 @@ const AddNews = () => {
   const titleCheck = (data) => {
     if (data === "") {
       setTitleError("Title is required");
+      formError.titleError = true;
     } else {
       setFormData({ ...formData, title: data });
       setTitleError("");
+      formError.titleError = false;
     }
   };
   const handleTitleData = (e) => {
@@ -80,14 +90,17 @@ const AddNews = () => {
   const checkImages = () => {
     if (selectedImages.length < 1) {
       setImagesError("Select at least 1 image");
+      formError.imagesError = true;
     }
   };
   const onSelectFiles = (e) => {
     const imageList = Array.from(e.target.files);
     if (imageList.length > 4) {
       setImagesError("More than 4 image is not allowed!");
+      formError.imagesError = true;
     } else {
       setImagesError("");
+      formError.imagesError = false;
       setFormData({ ...formData, images: imageList });
       const imageArray = imageList.map((item) => {
         return URL.createObjectURL(item);
@@ -100,9 +113,11 @@ const AddNews = () => {
   const checkFeatureImg = () => {
     if (formData.featureImg === null) {
       setFeatureImgError("Select 1 feature image");
+      formError.featureImgError = true;
     } else {
       console.log("not-error");
       setFeatureImgError("");
+      formError.featureImgError = false;
     }
   };
 
@@ -111,6 +126,7 @@ const AddNews = () => {
     console.log(id);
     const featureImg = formData?.images?.find((img, i) => id === i);
     setFeatureImgError("");
+    formError.featureImgError = false;
     setFormData({ ...formData, featureImg: id });
   };
 
@@ -119,13 +135,16 @@ const AddNews = () => {
     console.log();
     if (selectedCategories.length < 1) {
       setCategoriesError("Category can't be empty");
+      formError.categoriesError = true;
     } else {
       setCategoriesError("");
+      formError.categoriesError = false;
     }
   };
 
   const handleSelectedCategories = (value) => {
     setCategoriesError("");
+    formError.categoriesError = false;
     if (selectedCategories.find((item) => item === value)) {
       setSelectedCategories(
         selectedCategories.filter((item) => item !== value)
@@ -139,11 +158,13 @@ const AddNews = () => {
   const checkText = () => {
     if (content === "") {
       setTextError("Text can't be empty!");
+      formError.textError = true;
     }
   };
 
   const handleText = (content) => {
     setTextError("");
+    formError.textError = false;
     setContent(content);
     setFormData({ ...formData, text: content });
   };
@@ -153,11 +174,14 @@ const AddNews = () => {
     if (e.key === "Enter" && e.target.value !== "") {
       if (tags.length === 5) {
         setTagsError("You can't add more than 5 tags");
+        formError.tagsError = true;
       } else {
         if (tags.find((tag) => tag === e.target.value)) {
           setTagsError("This tag is already added");
+          formError.tagsError = true;
         } else {
           setTagsError("");
+          formError.tagsError = false;
           setTags([...tags, e.target.value]);
         }
       }
@@ -171,7 +195,7 @@ const AddNews = () => {
 
   const deleteTag = (i) => {
     setTagsError("");
-    setTags(tags.filter((tag, i) => i !== i));
+    setTags(tags.filter((tag, index) => index !== i));
   };
 
   //!------------- Images Upload to Firebase -------------
@@ -179,7 +203,10 @@ const AddNews = () => {
     let downloadImagesUrl = [];
     try {
       const imagesUpload = data.images.map(async (img) => {
-        const imageRef = ref(storage, `articleImg/${img.name}`);
+        const imageRef = ref(
+          storage,
+          `articleImg/${formData.title}/${img.name}`
+        );
         try {
           const snapshot = await uploadBytes(imageRef, img);
           const url = await getDownloadURL(snapshot.ref);
@@ -211,34 +238,62 @@ const AddNews = () => {
     checkCategories();
     checkText();
 
-    const data = {
-      ...formData,
-      category: selectedCategories,
-      time: new Date().toLocaleString("en-US", {
-        dateStyle: "full",
-        timeStyle: "medium",
-      }),
-      tags: tags,
-    };
-
-    const imagesURL = await uploadImages(data);
-    if (imagesURL.length > 0) {
-      console.log(imagesURL);
-      console.log("featured-img-url:", imagesURL[formData.featureImg]);
-      console.log("form-submitted....");
-    }
+    console.log(formError);
 
     if (
-      titleError === "" &&
-      imagesError === "" &&
-      featureImgError === "" &&
-      textError === "" &&
-      tagsError === ""
+      formError.titleError === false &&
+      formError.imagesError === false &&
+      formError.featureImgError === false &&
+      formError.textError === false &&
+      formError.tagsError === false &&
+      formError.categoriesError == false
     ) {
-      console.log("enenenene");
-      console.log("submit-data");
+      const data = {
+        ...formData,
+        category: selectedCategories,
+        time: new Date().toLocaleString("en-US", {
+          dateStyle: "full",
+          timeStyle: "medium",
+        }),
+        tags: tags,
+      };
+      console.log("entered");
+
+      const imagesURL = await uploadImages(data);
+
+      if (imagesURL.length > 0) {
+        console.log(imagesURL);
+        console.log("featured-img-url:", imagesURL[formData.featureImg]);
+        data.images = imagesURL;
+
+        console.log("data:", data);
+        console.log("form-submitted....");
+
+        setTags([]);
+        setSelectedCategories([]);
+        setSelectedImages([]);
+        setContent("");
+        setFormData({
+          title: "",
+          subtitle: "",
+          text: "",
+          time: "",
+          author: "",
+          featureImg: null,
+          images: [],
+          tags: [],
+          category: [],
+        });
+        e.target.reset();
+      }
     }
   };
+
+  function onKeyDown(keyEvent) {
+    if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
+      keyEvent.preventDefault();
+    }
+  }
 
   console.log(formData);
   console.log("re-render");
@@ -247,7 +302,11 @@ const AddNews = () => {
     <section className="add-news-container">
       <h2 className="heading-text">Add An Article</h2>
       <div>
-        <form action="" className="form-container" onSubmit={formHandler}>
+        <form
+          className="form-container"
+          onKeyDown={onKeyDown}
+          onSubmit={formHandler}
+        >
           {/*--------- Title & SubTitle Input ---------*/}
           <div className="double-input-container">
             <div className="w-full">
