@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/Login.scss";
-import Logo from "../../assets/logo.png";
+import Logo from "../../assets/logo/prothomalo_logo_eng.png";
 import { IoIosArrowBack } from "react-icons/io";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import GoogleLogo from "../../assets/social-icons/google-icon.svg";
 import checkValidEmail from "../../utils/checkValidEmail";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [emailError, setEmailError] = useState("");
   const [passError, setPassError] = useState("");
   const [passShow, setPassShow] = useState(false);
+  const dispatch = useDispatch();
 
   const emailCheck = (email) => {
     const isValid = checkValidEmail(email);
@@ -58,6 +60,7 @@ const Login = () => {
 
     if (!emailError && !passError && email && password) {
       console.log(formData);
+      
     }
   };
 

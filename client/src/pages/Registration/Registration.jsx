@@ -5,6 +5,8 @@ import { IoIosArrowBack } from "react-icons/io";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import GoogleLogo from "../../assets/social-icons/google-icon.svg";
 import checkValidEmail from "../../utils/checkValidEmail";
+import { useDispatch } from "react-redux";
+import { createUser } from "../../redux/user/userSlice";
 
 const Registration = () => {
   const [formData, setFormData] = useState({
@@ -19,6 +21,8 @@ const Registration = () => {
   const [confirmPassError, setConfirmPassError] = useState("");
   const [passShow, setPassShow] = useState(false);
   const [confirmPassShow, setConfirmPassShow] = useState(false);
+
+  const dispatch = useDispatch();
 
   //!----------- Form Validation Start -----------
   const nameCheck = (name) => {
@@ -109,10 +113,12 @@ const Registration = () => {
       !passError &&
       !nameError &&
       !confirmPassError &&
+      name &&
       email &&
       password
     ) {
       console.log(formData);
+      dispatch(createUser(formData));
     }
   };
 
