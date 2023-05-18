@@ -8,6 +8,9 @@ import checkValidEmail from "../../utils/checkValidEmail";
 import { useDispatch, useSelector } from "react-redux";
 import userSlice, { createUser } from "../../redux/user/userSlice";
 import { useRegisterMutation } from "../../redux/user/userApi";
+import { ClipLoader } from "react-spinners";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import CustomModal from "../../components/CustomModal/CustomModal";
 
 const Registration = () => {
   const [formData, setFormData] = useState({
@@ -23,16 +26,17 @@ const Registration = () => {
   const [passShow, setPassShow] = useState(false);
   const [confirmPassShow, setConfirmPassShow] = useState(false);
   const [register, { isSuccess }] = useRegisterMutation();
-  const { email, isLoading, isError, error } = useSelector(
-    (state) => state.userSlice
-  );
+  const {
+    user: { email },
+    isLoading,
+    isError,
+    error,
+  } = useSelector((state) => state.userSlice);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isLoading) {
-      console.log("loading");
-    } else if (isError) {
+    if (isError) {
       console.log(error);
     } else if (email) {
       register({ name: formData.name, email: formData.email, role: "user" });
@@ -141,7 +145,22 @@ const Registration = () => {
     <>
       <section className="max-w-[1280px] mx-auto h-screen flex items-center justify-center ">
         <div className="login-container space-y-6">
-          <div>
+          {isLoading && <LoadingSpinner></LoadingSpinner>}
+          {email && (
+            <CustomModal
+              mode={"success"}
+              heading={"Registration Complete"}
+              text={"Your Registration has been completed successfully!"}
+            ></CustomModal>
+          )}
+          {isError && (
+            <CustomModal
+              mode={"error"}
+              heading={"Registration Failed"}
+              text={`${error}`}
+            ></CustomModal>
+          )}
+          <div className="inline-block">
             <Link to={"/"} className="flex items-center">
               <IoIosArrowBack className="font-bold text-lg mb-1"></IoIosArrowBack>
               <p>Back</p>

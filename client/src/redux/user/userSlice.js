@@ -3,8 +3,11 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase.init";
 
 const initialState = {
-  email: "",
-  role: "",
+  user: {
+    email: "",
+    name: "",
+    role: "",
+  },
   isLoading: false,
   isError: false,
   error: "",
@@ -31,12 +34,12 @@ const userSlice = createSlice({
       .addCase(createUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
-        state.email = action.payload;
+        state.user.email = action.payload;
       })
       .addCase(createUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.email = "";
+        state.user.email = "";
         state.error = action.error.message;
       });
   },
