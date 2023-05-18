@@ -9,9 +9,13 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import MyProfile from "./pages/Dashboard/MyProfile";
 import EditProfile from "./pages/Dashboard/EditProfile";
 import AddNews from "./pages/Dashboard/AddNews";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./firebase.init";
+import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 
 function App() {
   const dispatch = useDispatch();
+  const [user, loading, error] = useAuthState(auth);
 
   useEffect(() => {
     fetch("news.json")
@@ -19,8 +23,15 @@ function App() {
       .then((data) => dispatch(addAllNews(data)));
   }, [dispatch]);
 
+  useEffect(() => {
+    if (user) {
+      console.log(user.email);
+    }
+  }, [user]);
+
   return (
     <>
+      {loading && <LoadingSpinner></LoadingSpinner>}
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
@@ -31,7 +42,10 @@ function App() {
         <Route path="/dashboard" element={<Dashboard></Dashboard>}>
           <Route path="add-news" element={<AddNews></AddNews>}></Route>
           <Route path="my-profile" element={<MyProfile></MyProfile>}></Route>
-          <Route path="edit-profile" element={<EditProfile></EditProfile>}></Route>
+          <Route
+            path="edit-profile"
+            element={<EditProfile></EditProfile>}
+          ></Route>
         </Route>
       </Routes>
     </>

@@ -6,11 +6,15 @@ import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import GoogleLogo from "../../assets/social-icons/google-icon.svg";
 import checkValidEmail from "../../utils/checkValidEmail";
 import { useDispatch, useSelector } from "react-redux";
-import userSlice, { createUser } from "../../redux/user/userSlice";
+import { createUser } from "../../redux/user/userSlice";
 import { useRegisterMutation } from "../../redux/user/userApi";
-import { ClipLoader } from "react-spinners";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import CustomModal from "../../components/CustomModal/CustomModal";
+import {
+  useCreateUserWithEmailAndPassword,
+  useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
+import { auth } from "../../firebase.init";
 
 const Registration = () => {
   const [formData, setFormData] = useState({
@@ -26,22 +30,21 @@ const Registration = () => {
   const [passShow, setPassShow] = useState(false);
   const [confirmPassShow, setConfirmPassShow] = useState(false);
   const [register, { isSuccess }] = useRegisterMutation();
-  const {
-    user: { email },
-    isLoading,
-    isError,
-    error,
-  } = useSelector((state) => state.userSlice);
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+  const [signInWithGoogle, userGoogle, loadingGoogle, errorGoogle] =
+    useSignInWithGoogle(auth);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isError) {
-      console.log(error);
-    } else if (email) {
+    if (error || errorGoogle) {
+      console.log(error || errorGoogle);
+    } else if (user || userGoogle) {
+      console.log("user:", user || userGoogle);
       register({ name: formData.name, email: formData.email, role: "user" });
     }
-  }, [email, formData, register, isLoading, isError, error]);
+  }, [user, formData, register, error, errorGoogle, userGoogle]);
 
   //!----------- Form Validation Start -----------
   const nameCheck = (name) => {
@@ -115,7 +118,11 @@ const Registration = () => {
     setConfirmPassShow(!confirmPassShow);
   };
 
-  const handleLogin = (e) => {
+  const handleGoogleLogin = async () => {
+    await signInWithGoogle();
+  };
+
+  const handleLogin = async (e) => {
     e.preventDefault();
     const name = formData.name;
     const email = formData.email;
@@ -137,7 +144,7 @@ const Registration = () => {
       password
     ) {
       console.log(formData);
-      dispatch(createUser(formData));
+      await createUserWithEmailAndPassword(email, password);
     }
   };
 
@@ -145,19 +152,19 @@ const Registration = () => {
     <>
       <section className="max-w-[1280px] mx-auto h-screen flex items-center justify-center ">
         <div className="login-container space-y-6">
-          {isLoading && <LoadingSpinner></LoadingSpinner>}
-          {email && (
+          {(loading || loadingGoogle) && <LoadingSpinner></LoadingSpinner>}
+          {(user || userGoogle) && (
             <CustomModal
               mode={"success"}
               heading={"Registration Complete"}
               text={"Your Registration has been completed successfully!"}
             ></CustomModal>
           )}
-          {isError && (
+          {(error || errorGoogle) && (
             <CustomModal
               mode={"error"}
               heading={"Registration Failed"}
-              text={`${error}`}
+              text={`${error || errorGoogle}`}
             ></CustomModal>
           )}
           <div className="inline-block">
@@ -267,7 +274,7 @@ const Registration = () => {
             <div>
               <p className="text-center">or</p>
             </div>
-            <div className="google-login space-x-4">
+            <div className="google-login space-x-4" onClick={handleGoogleLogin}>
               <img src={GoogleLogo} alt="" className="google-logo" />
               <p className="google-logo-text">Continue with Google</p>
             </div>
