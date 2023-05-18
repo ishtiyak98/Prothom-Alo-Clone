@@ -5,7 +5,7 @@ import { auth } from "../../firebase.init";
 const initialState = {
   email: "",
   role: "",
-  isLoading: true,
+  isLoading: false,
   isError: false,
   error: "",
 };

@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/logo.png";
 import { IoIosArrowBack } from "react-icons/io";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import GoogleLogo from "../../assets/social-icons/google-icon.svg";
 import checkValidEmail from "../../utils/checkValidEmail";
-import { useDispatch } from "react-redux";
-import { createUser } from "../../redux/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import userSlice, { createUser } from "../../redux/user/userSlice";
+import { useRegisterMutation } from "../../redux/user/userApi";
 
 const Registration = () => {
   const [formData, setFormData] = useState({
@@ -21,8 +22,22 @@ const Registration = () => {
   const [confirmPassError, setConfirmPassError] = useState("");
   const [passShow, setPassShow] = useState(false);
   const [confirmPassShow, setConfirmPassShow] = useState(false);
+  const [register, { isSuccess }] = useRegisterMutation();
+  const { email, isLoading, isError, error } = useSelector(
+    (state) => state.userSlice
+  );
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isLoading) {
+      console.log("loading");
+    } else if (isError) {
+      console.log(error);
+    } else if (email) {
+      register({ name: formData.name, email: formData.email, role: "user" });
+    }
+  }, [email, formData, register, isLoading, isError, error]);
 
   //!----------- Form Validation Start -----------
   const nameCheck = (name) => {
