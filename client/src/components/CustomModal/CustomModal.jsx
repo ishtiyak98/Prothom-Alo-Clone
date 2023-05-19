@@ -10,8 +10,11 @@ const CustomModal = ({ mode, heading, text }) => {
     setDisplay(false);
   };
   return (
-    <div className={`modal-container ${!display && "hidden"}`}>
-      <div className="modal">
+    <div
+      className={`modal-container ${!display && "hidden"}`}
+      onClick={hideModal}
+    >
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
         <div>
           {mode === "success" && (
             <BsCheckCircle className="text-6xl text-green-600 mb-[25px]"></BsCheckCircle>
@@ -20,7 +23,11 @@ const CustomModal = ({ mode, heading, text }) => {
             <BiError className="text-6xl text-[#D60000] mb-[25px]"></BiError>
           )}
         </div>
-        <h2 className={`md-heading ${mode === "success" && "text-green-600"} ${mode === "error" && "text-[#D60000]"}`}>
+        <h2
+          className={`md-heading ${mode === "success" && "text-green-600"} ${
+            mode === "error" && "text-[#D60000]"
+          }`}
+        >
           {heading}
         </h2>
         <p className="md-text">{text}</p>

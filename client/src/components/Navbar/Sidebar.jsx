@@ -13,8 +13,8 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   return (
     <>
-      <div className="nav-sidebar">
-        <div className="nav-sidebar-content">
+      <div className="nav-sidebar" onClick={() => dispatch(hideSidebar())}>
+        <div className="nav-sidebar-content" onClick={(e) => e.stopPropagation()}>
           <div
             className="sidebar-close"
             onClick={() => dispatch(hideSidebar())}

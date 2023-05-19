@@ -3,15 +3,13 @@ const News = require("../model/newsModel");
 //!----------- GET News -----------
 module.exports.getNews = async (req, res) => {
   try {
-    // const newNews = new News(req.body);
-    // const result = await newNews.save();
+    const allNews = await News.find({});
+
     res.status(200).json({
       success: true,
-      message: "get News",
-      data: "",
+      message: "all-news fetched successfully",
+      data: allNews,
     });
-
-
   } catch (error) {
     res.status(400).json({
       success: false,

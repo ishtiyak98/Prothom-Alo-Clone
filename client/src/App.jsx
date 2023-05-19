@@ -12,22 +12,24 @@ import AddNews from "./pages/Dashboard/AddNews";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase.init";
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
+import { useFindUserDataQuery } from "./redux/user/userApi";
+import ProtectedRoute from "./components/RoutesHandler/ProtectedRoute";
 
 function App() {
   const dispatch = useDispatch();
+
   const [user, loading, error] = useAuthState(auth);
+  const {
+    data: findUser,
+    isLoading,
+    isError,
+  } = useFindUserDataQuery(user?.email, { skip: !user?.email });
 
   useEffect(() => {
     fetch("news.json")
       .then((res) => res.json())
       .then((data) => dispatch(addAllNews(data)));
   }, [dispatch]);
-
-  useEffect(() => {
-    if (user) {
-      console.log(user.email);
-    }
-  }, [user]);
 
   return (
     <>
@@ -39,7 +41,15 @@ function App() {
           path="/registration"
           element={<Registration></Registration>}
         ></Route>
-        <Route path="/dashboard" element={<Dashboard></Dashboard>}>
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard></Dashboard>
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<MyProfile></MyProfile>}></Route>
           <Route path="add-news" element={<AddNews></AddNews>}></Route>
           <Route path="my-profile" element={<MyProfile></MyProfile>}></Route>
           <Route

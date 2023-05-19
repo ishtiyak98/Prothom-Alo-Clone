@@ -1,14 +1,28 @@
-import React, { useEffect, useState } from "react";
-import Logo from "../../assets/logo.png";
+import React, { useState } from "react";
+import Logo from "../../assets/logo/prothomalo_logo_eng.png";
 import { BiBell, BiMenu, BiSearchAlt2 } from "react-icons/bi";
 import "../../styles/Navbar.scss";
-import getBanglaDate from "../../utils/getBanglaDate";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { showSidebar } from "../../redux/sidebar/sidebarSlice";
 import { Link } from "react-router-dom";
+import { useSignOut } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase.init";
+import { userLogOut } from "../../redux/user/userSlice";
+import AvatarLogo from "../../assets/avatar.png";
 
 const Navbar = () => {
+  const { user } = useSelector((state) => state.userSlice);
+  const [signOut, loading, error] = useSignOut(auth);
+  const [logoutSuccess, setLogoutSuccess] = useState(false);
   const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    const success = await signOut();
+    if (success) {
+      dispatch(userLogOut());
+      setLogoutSuccess(true);
+    }
+  };
 
   return (
     <section className="pt-4 px-2 lg:px-0">
@@ -21,17 +35,29 @@ const Navbar = () => {
           <BiSearchAlt2 className="search-icon"></BiSearchAlt2>
         </div>
         <div className="logo-wrapper">
-          <img src={Logo} alt="" />
+          <Link to={"/"}>
+            <img src={Logo} alt="" />
+          </Link>
         </div>
         <div className="right-icon">
           <div>
             <BiBell className="bell-icon"></BiBell>
           </div>
-          <div>
-            <Link to={"/login"} className="login-btn">
-              Login
-            </Link>
-          </div>
+          {user.email ? (
+            <div>
+              <div>
+                <Link to={"/dashboard"}>
+                  <img src={AvatarLogo} className="nav-avatar" alt="" />
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <Link to={"/login"} className="login-btn">
+                Login
+              </Link>
+            </div>
+          )}
         </div>
       </header>
 

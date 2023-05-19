@@ -5,8 +5,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import GoogleLogo from "../../assets/social-icons/google-icon.svg";
 import checkValidEmail from "../../utils/checkValidEmail";
-import { useDispatch, useSelector } from "react-redux";
-import { createUser } from "../../redux/user/userSlice";
+import { useDispatch } from "react-redux";
 import { useRegisterMutation } from "../../redux/user/userApi";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import CustomModal from "../../components/CustomModal/CustomModal";
@@ -121,6 +120,7 @@ const Registration = () => {
   const handleGoogleLogin = async () => {
     await signInWithGoogle();
   };
+  
 
   const handleLogin = async (e) => {
     e.preventDefault();

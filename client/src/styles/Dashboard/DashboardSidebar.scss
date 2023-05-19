@@ -1,11 +1,12 @@
+@import "../config";
 @import "../mixins/responsive";
 
 .sidebar-container {
-    // width: 100%;
-    background-color: #151529;
+    width: 100%;
     transition: all 0.25s;
     height: 100%;
     z-index: 50;
+    background-color: rgba(0, 0, 0, 0.4);
 
     @include lg {
         width: 250px;
@@ -13,18 +14,31 @@
 
     .sidebar-link-container {
         width: 250px;
-        padding: 25px;
+        height: 100%;
+        padding: 25px 0px;
+        position: sticky;
+        top: 0;
+        color: rgb(185, 185, 185);
+        background-color: $deep-blue;
+
+        .active-link {
+            display: block;
+            color: lighten($blue, 10);
+            background-color: lighten($deep-blue, 10);
+        }
 
         .sidebar-link {
             display: flex;
             align-items: flex-end;
-            padding: 10px 0px;
-            color: rgb(185, 185, 185);
+            padding: 15px 20px;
+            border-top: 1px solid $deep-blue;
+            border-bottom: 1px solid $deep-blue;
             @apply space-x-2;
 
             &:hover {
-                color: white;
+                color: lighten($blue, 10);
                 cursor: pointer;
+                background-color: lighten($deep-blue, 5);
             }
         }
     }

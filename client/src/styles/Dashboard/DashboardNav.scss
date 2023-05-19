@@ -1,0 +1,30 @@
+@import "../config";
+@import "../mixins/responsive";
+
+.dash-nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 10px;
+    width: 100%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+    @include lg {
+        padding: 15px 30px;
+    }
+
+    .logout-btn {
+        font-size: 16px;
+        font-weight: 600;
+        color: $red;
+        border: 1px solid lightgray;
+        border-radius: 2px;
+        padding: 8px 24px;
+        transition: all 0.3s;
+
+        &:hover {
+            cursor: pointer;
+            background-color: rgb(247, 247, 247);
+        }
+    }
+}

@@ -1,19 +1,44 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../../styles/Login.scss";
 import Logo from "../../assets/logo/prothomalo_logo_eng.png";
 import { IoIosArrowBack } from "react-icons/io";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import GoogleLogo from "../../assets/social-icons/google-icon.svg";
 import checkValidEmail from "../../utils/checkValidEmail";
-import { useDispatch } from "react-redux";
+import {
+  useSignInWithEmailAndPassword,
+  useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
+import { auth } from "../../firebase.init";
+import CustomModal from "../../components/CustomModal/CustomModal";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import { useEffect } from "react";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [emailError, setEmailError] = useState("");
   const [passError, setPassError] = useState("");
   const [passShow, setPassShow] = useState(false);
-  const dispatch = useDispatch();
+
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+  const [signInWithGoogle, userGoogle, loadingGoogle, errorGoogle] =
+    useSignInWithGoogle(auth);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location.state?.from?.pathname);
+  const from = location.state?.from?.pathname || "/";
+
+  useEffect(() => {
+    if (error || errorGoogle) {
+      console.log(error || errorGoogle);
+    } else if (user || userGoogle) {
+      console.log("user:", user || userGoogle);
+      navigate(from, { replace: true });
+    }
+  }, [user, formData, error, navigate, from, errorGoogle, userGoogle]);
 
   const emailCheck = (email) => {
     const isValid = checkValidEmail(email);
@@ -50,6 +75,10 @@ const Login = () => {
     setPassShow(!passShow);
   };
 
+  const handleGoogleLogin = async () => {
+    await signInWithGoogle();
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
     const email = formData.email;
@@ -60,7 +89,7 @@ const Login = () => {
 
     if (!emailError && !passError && email && password) {
       console.log(formData);
-      
+      signInWithEmailAndPassword(email, password);
     }
   };
 
@@ -68,6 +97,21 @@ const Login = () => {
     <>
       <section className="max-w-[1280px] mx-auto h-screen flex items-center justify-center ">
         <div className="login-container space-y-6">
+          {(loading || loadingGoogle) && <LoadingSpinner></LoadingSpinner>}
+          {(user || userGoogle) && (
+            <CustomModal
+              mode={"success"}
+              heading={"Registration Complete"}
+              text={"Your Registration has been completed successfully!"}
+            ></CustomModal>
+          )}
+          {(error || errorGoogle) && (
+            <CustomModal
+              mode={"error"}
+              heading={"Registration Failed"}
+              text={`${error || errorGoogle}`}
+            ></CustomModal>
+          )}
           <div>
             <Link to={"/"} className="flex items-center">
               <IoIosArrowBack className="font-bold text-lg mb-1"></IoIosArrowBack>
@@ -144,7 +188,7 @@ const Login = () => {
             <div>
               <p className="text-center">or</p>
             </div>
-            <div className="google-login space-x-4">
+            <div className="google-login space-x-4" onClick={handleGoogleLogin}>
               <img src={GoogleLogo} alt="" className="google-logo" />
               <p className="google-logo-text">Continue with Google</p>
             </div>

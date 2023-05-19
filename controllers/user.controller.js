@@ -18,6 +18,25 @@ module.exports.getAllUsers = async (req, res) => {
   }
 };
 
+//!----------- GET User by Email -----------
+module.exports.findUser = async (req, res) => {
+  try {
+    const email = req.params.email;
+    const user = await User.findOne({ email: email });
+    if (user) {
+      res.status(200).json({
+        success: false,
+        message: "user data fetched successfully",
+        data: user,
+      });
+    } else {
+      res.status(400).json({
+        success: true,
+        message: "user doesn't exist",
+      });
+    }
+  } catch (error) {}
+};
 //!----------- POST a New User -----------
 module.exports.addUser = async (req, res) => {
   try {
