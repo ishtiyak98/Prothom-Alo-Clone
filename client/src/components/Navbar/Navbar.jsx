@@ -63,8 +63,8 @@ const Navbar = () => {
 
       <div className="flex justify-between text-[15px] pb-4 max-w-[1280px] mx-auto">
         <div>
-          <p>
-            {new Date().toLocaleDateString("bn-BD", {
+          <p className="">
+            {new Date().toLocaleDateString("en-US", {
               weekday: "long",
               year: "numeric",
               month: "long",

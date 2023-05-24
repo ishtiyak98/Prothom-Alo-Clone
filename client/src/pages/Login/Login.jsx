@@ -14,31 +14,46 @@ import { auth } from "../../firebase.init";
 import CustomModal from "../../components/CustomModal/CustomModal";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import { useEffect } from "react";
+import {
+  useRegisterMutation,
+  useSignUpMutation,
+} from "../../redux/user/userApi";
+import useToken from "../../hooks/useToken";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [emailError, setEmailError] = useState("");
   const [passError, setPassError] = useState("");
   const [passShow, setPassShow] = useState(false);
+  const [register, { isSuccess }] = useRegisterMutation();
 
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
   const [signInWithGoogle, userGoogle, loadingGoogle, errorGoogle] =
     useSignInWithGoogle(auth);
+  const [signUp] = useSignUpMutation();
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.state?.from?.pathname);
   const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
     if (error || errorGoogle) {
       console.log(error || errorGoogle);
-    } else if (user || userGoogle) {
-      console.log("user:", user || userGoogle);
+    } else if (user) {
+      signUp({
+        name: user.displayName,
+        email: user.email,
+      });
+      navigate(from, { replace: true });
+    } else if (userGoogle) {
+      signUp({
+        name: userGoogle.user.displayName,
+        email: userGoogle.user.email,
+      });
       navigate(from, { replace: true });
     }
-  }, [user, formData, error, navigate, from, errorGoogle, userGoogle]);
+  }, [user, formData, error, navigate, signUp, from, errorGoogle, userGoogle]);
 
   const emailCheck = (email) => {
     const isValid = checkValidEmail(email);

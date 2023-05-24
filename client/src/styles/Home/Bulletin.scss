@@ -1,0 +1,26 @@
+@import "../config";
+@import "../mixins/responsive";
+
+.bulletin-container {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    
+    @include lg{
+        grid-template-columns: 75% 25%;
+    }
+
+    .bulletin-child-1 {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1px;
+        background-color: rgb(230, 230, 230);
+
+        @include lg {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+    .bulletin-child-2{
+        isplay: grid;
+        grid-template-rows: 25% 25% 25%;
+    }
+}

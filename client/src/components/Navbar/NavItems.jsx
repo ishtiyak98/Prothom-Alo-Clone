@@ -7,18 +7,14 @@ const NavItems = () => {
         <>
         <nav className="nav-container">
             <div className='nav-items'>
-                <div><Link to={"/"} className="nav-text">সর্বশেষ</Link></div>
-                <div><Link to={"/"} className="nav-text">বিশেষ সংবাদ</Link></div>
-                <div><Link to={"/"} className="nav-text">রাজনীতি</Link></div>
-                <div><Link to={"/"} className="nav-text">করোনাভাইরাস</Link></div>
-                <div><Link to={"/"} className="nav-text">বাংলাদেশ</Link></div>
-                <div><Link to={"/"} className="nav-text">বিশ্ব</Link></div>
-                <div><Link to={"/"} className="nav-text">বাণিজ্য</Link></div>
-                <div><Link to={"/"} className="nav-text">মতামত</Link></div>
-                <div><Link to={"/"} className="nav-text">খেলা</Link></div>
-                <div><Link to={"/"} className="nav-text">বিনোদন</Link></div>
-                <div><Link to={"/"} className="nav-text">চাকরি</Link></div>
-                <div><Link to={"/"} className="nav-text">জীবনযাপন</Link></div>
+                <div><Link to={"/"} className="nav-text">Bangladesh</Link></div>
+                <div><Link to={"/"} className="nav-text">International</Link></div>
+                <div><Link to={"/"} className="nav-text">Sports</Link></div>
+                <div><Link to={"/"} className="nav-text">Opinion</Link></div>
+                <div><Link to={"/"} className="nav-text">Business</Link></div>
+                <div><Link to={"/"} className="nav-text">Youth</Link></div>
+                <div><Link to={"/"} className="nav-text">Entertainment</Link></div>
+                <div><Link to={"/"} className="nav-text">Lifestyle</Link></div>
             </div>
         </nav>
         </>

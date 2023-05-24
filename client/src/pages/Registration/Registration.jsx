@@ -12,6 +12,7 @@ import CustomModal from "../../components/CustomModal/CustomModal";
 import {
   useCreateUserWithEmailAndPassword,
   useSignInWithGoogle,
+  useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase.init";
 
@@ -29,8 +30,10 @@ const Registration = () => {
   const [passShow, setPassShow] = useState(false);
   const [confirmPassShow, setConfirmPassShow] = useState(false);
   const [register, { isSuccess }] = useRegisterMutation();
+
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
+  const [updateProfile, updating] = useUpdateProfile(auth);
   const [signInWithGoogle, userGoogle, loadingGoogle, errorGoogle] =
     useSignInWithGoogle(auth);
 
@@ -39,9 +42,15 @@ const Registration = () => {
   useEffect(() => {
     if (error || errorGoogle) {
       console.log(error || errorGoogle);
-    } else if (user || userGoogle) {
-      console.log("user:", user || userGoogle);
-      register({ name: formData.name, email: formData.email, role: "user" });
+    } else if (user) {
+      console.log("user:", user);
+      register({ name: formData.name, email: formData.email });
+    } else if (userGoogle) {
+      console.log("Guser:", userGoogle);
+      register({
+        name: userGoogle.user.displayName,
+        email: userGoogle.user.email,
+      });
     }
   }, [user, formData, register, error, errorGoogle, userGoogle]);
 
@@ -120,7 +129,6 @@ const Registration = () => {
   const handleGoogleLogin = async () => {
     await signInWithGoogle();
   };
-  
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -143,8 +151,8 @@ const Registration = () => {
       email &&
       password
     ) {
-      console.log(formData);
       await createUserWithEmailAndPassword(email, password);
+      await updateProfile({ displayName: name });
     }
   };
 
@@ -152,7 +160,9 @@ const Registration = () => {
     <>
       <section className="max-w-[1280px] mx-auto h-screen flex items-center justify-center ">
         <div className="login-container space-y-6">
-          {(loading || loadingGoogle) && <LoadingSpinner></LoadingSpinner>}
+          {(loading || loadingGoogle || updating) && (
+            <LoadingSpinner></LoadingSpinner>
+          )}
           {(user || userGoogle) && (
             <CustomModal
               mode={"success"}

@@ -14,119 +14,87 @@ const Sidebar = () => {
   return (
     <>
       <div className="nav-sidebar" onClick={() => dispatch(hideSidebar())}>
-        <div className="nav-sidebar-content" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="nav-sidebar-content"
+          onClick={(e) => e.stopPropagation()}
+        >
           <div
             className="sidebar-close"
             onClick={() => dispatch(hideSidebar())}
           >
             <IoMdClose></IoMdClose>
           </div>
-          <nav className="sidebar-nav">
+          <nav className="sidebar-nav grid grid-cols-2 lg:grid-cols-1 gap-x-5">
             <div>
               <Link to={"/"} className="sidebar-nav-text">
-                প্রচ্ছদ
+                Home
               </Link>
             </div>
             <div>
               <Link to={"/"} className="sidebar-nav-text">
-                সর্বশেষ
+                Bangladesh
               </Link>
             </div>
             <div>
               <Link to={"/"} className="sidebar-nav-text">
-                বিশেষ সংবাদ
+                Sports
               </Link>
             </div>
             <div>
               <Link to={"/"} className="sidebar-nav-text">
-                রাজনীতি
+                Opinion
               </Link>
             </div>
             <div>
               <Link to={"/"} className="sidebar-nav-text">
-                করোনাভাইরাস
+                Business
               </Link>
             </div>
             <div>
               <Link to={"/"} className="sidebar-nav-text">
-                বাংলাদেশ
+                Youth
               </Link>
             </div>
             <div>
               <Link to={"/"} className="sidebar-nav-text">
-                বিশ্ব
+                Entertainment
               </Link>
             </div>
             <div>
               <Link to={"/"} className="sidebar-nav-text">
-                বাণিজ্য
+                LifeStyle
               </Link>
             </div>
             <div>
               <Link to={"/"} className="sidebar-nav-text">
-                মতামত
+                Environment
               </Link>
             </div>
             <div>
               <Link to={"/"} className="sidebar-nav-text">
-                খেলা
+                Science & Technology
               </Link>
             </div>
             <div>
               <Link to={"/"} className="sidebar-nav-text">
-                বিনোদন
+                Corporate
               </Link>
             </div>
             <div>
               <Link to={"/"} className="sidebar-nav-text">
-                চাকরি
+                Photo
               </Link>
             </div>
             <div>
               <Link to={"/"} className="sidebar-nav-text">
-                জীবনযাপন
-              </Link>
-            </div>
-            <div>
-              <Link to={"/"} className="sidebar-nav-text">
-                প্রযুক্তি
-              </Link>
-            </div>
-            <div>
-              <Link to={"/"} className="sidebar-nav-text">
-                সুস্থতা
-              </Link>
-            </div>
-            <div>
-              <Link to={"/"} className="sidebar-nav-text">
-                শিক্ষা
-              </Link>
-            </div>
-            <div>
-              <Link to={"/"} className="sidebar-nav-text">
-                ধর্ম
-              </Link>
-            </div>
-            <div>
-              <Link to={"/"} className="sidebar-nav-text">
-                ছবি
-              </Link>
-            </div>
-            <div>
-              <Link to={"/"} className="sidebar-nav-text">
-                ভিডিও
-              </Link>
-            </div>
-            <div>
-              <Link to={"/"} className="sidebar-nav-text">
-                একটু থামুন
+                Video
               </Link>
             </div>
           </nav>
 
           {/*!------- sidebar-social-icons -------*/}
           <div>
-            <p>অনুসরণ করুন</p>
+            <p>Follow us</p>
             <div className="social-container">
               <div className="social-icon-wrapper">
                 <img src={FacebookSVG} alt="" />

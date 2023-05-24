@@ -1,4 +1,7 @@
-.nav-container{
+@import "./config.scss";
+@import "./mixins/responsive";
+
+.nav-container {
     border-top: 1px;
     border-bottom: 1px;
     border-style: solid;
@@ -10,14 +13,21 @@
     margin-bottom: 20px;
     @apply hidden lg:block;
 
-    .nav-items{
+    .nav-items {
         width: 1020px;
         margin: 0 auto;
-        
-        @apply flex justify-between  text-sm font-bold;
+
+        @apply flex justify-center text-sm font-bold;
     }
 
-    .nav-text{
-        @apply block p-4 cursor-pointer hover:text-blue-700
+    .nav-text {
+        display: block;
+        padding: 14px 20px;
+
+        &:hover {
+            cursor: pointer;
+            color: $blue;
+        }
+        @apply block cursor-pointer hover:text-blue-700;
     }
 }

@@ -19,11 +19,15 @@ function App() {
   const dispatch = useDispatch();
 
   const [user, loading, error] = useAuthState(auth);
+
+  console.log(user);
   const {
     data: findUser,
     isLoading,
     isError,
   } = useFindUserDataQuery(user?.email, { skip: !user?.email });
+
+  console.log("findUser", findUser);
 
   useEffect(() => {
     fetch("news.json")

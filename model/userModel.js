@@ -11,10 +11,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "name is required"],
     },
-    role: {
-      type: String,
-      required: [true, "role is required"],
-    },
+    // role: {
+    //   type: String,
+    //   required: [true, "role is required"],
+    // },
   },
   {
     timestamps: true,
