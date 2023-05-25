@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { MdNewspaper } from "react-icons/md";
 import "../../../styles/Dashboard/DashboardSidebar.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { FaUserEdit } from "react-icons/fa";
+import { FaUserEdit, FaUsers } from "react-icons/fa";
 import { HiUser } from "react-icons/hi";
 import { toggleDashboardSidebar } from "../../../redux/sidebar/sidebarSlice";
 
@@ -46,6 +46,15 @@ const Sidebar = () => {
           <div className="sidebar-link">
             <FaUserEdit className="text-xl"></FaUserEdit>
             <p className="">Edit Profile</p>
+          </div>
+        </NavLink>
+        <NavLink
+          to={"all-users"}
+          className={({ isActive }) => (isActive ? "active-link" : "")}
+        >
+          <div className="sidebar-link">
+            <FaUsers className="text-xl"></FaUsers>
+            <p className="">All Users</p>
           </div>
         </NavLink>
       </div>

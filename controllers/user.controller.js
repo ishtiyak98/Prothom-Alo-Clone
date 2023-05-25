@@ -5,11 +5,11 @@ const jwt = require("jsonwebtoken");
 module.exports.getAllUsers = async (req, res) => {
   try {
     // const newNews = new News(req.body);
-    // const result = await newNews.save();
+    const users = await User.find({});
     res.status(200).json({
       success: true,
       message: "get all users",
-      data: "",
+      data: users,
     });
   } catch (error) {
     res.status(400).json({
@@ -109,7 +109,7 @@ module.exports.userToDB = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Google user added successfully",
-      data: {result, token},
+      data: { result, token },
     });
   } catch (error) {}
 };

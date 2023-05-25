@@ -14,6 +14,7 @@ import { auth } from "./firebase.init";
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 import { useFindUserDataQuery } from "./redux/user/userApi";
 import ProtectedRoute from "./components/RoutesHandler/ProtectedRoute";
+import AllUsers from "./pages/Dashboard/Admin/AllUsers";
 
 function App() {
   const dispatch = useDispatch();
@@ -60,6 +61,7 @@ function App() {
             path="edit-profile"
             element={<EditProfile></EditProfile>}
           ></Route>
+          <Route path="all-users" element={<AllUsers></AllUsers>}></Route>
         </Route>
       </Routes>
     </>

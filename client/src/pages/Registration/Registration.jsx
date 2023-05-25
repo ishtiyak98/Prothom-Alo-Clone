@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo.png";
 import { IoIosArrowBack } from "react-icons/io";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import GoogleLogo from "../../assets/social-icons/google-icon.svg";
 import checkValidEmail from "../../utils/checkValidEmail";
 import { useDispatch } from "react-redux";
-import { useRegisterMutation } from "../../redux/user/userApi";
+import {
+  useRegisterMutation,
+  useSignUpMutation,
+} from "../../redux/user/userApi";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import CustomModal from "../../components/CustomModal/CustomModal";
 import {
@@ -30,29 +33,35 @@ const Registration = () => {
   const [passShow, setPassShow] = useState(false);
   const [confirmPassShow, setConfirmPassShow] = useState(false);
   const [register, { isSuccess }] = useRegisterMutation();
+  const [signUp] = useSignUpMutation();
 
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
-  const [updateProfile, updating] = useUpdateProfile(auth);
+  const [updateProfile, updating, ] = useUpdateProfile(auth);
   const [signInWithGoogle, userGoogle, loadingGoogle, errorGoogle] =
     useSignInWithGoogle(auth);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
-    if (error || errorGoogle) {
-      console.log(error || errorGoogle);
-    } else if (user) {
-      console.log("user:", user);
-      register({ name: formData.name, email: formData.email });
+    if (user) {
+      signUp({
+        name: formData.name,
+        email: user.user.email,
+      });
+      // register({ name: formData.name, email: formData.email });
+      navigate(from, { replace: true });
     } else if (userGoogle) {
-      console.log("Guser:", userGoogle);
-      register({
+      signUp({
         name: userGoogle.user.displayName,
         email: userGoogle.user.email,
       });
+      navigate(from, { replace: true });
     }
-  }, [user, formData, register, error, errorGoogle, userGoogle]);
+  }, [user, formData, signUp, from, navigate, userGoogle]);
 
   //!----------- Form Validation Start -----------
   const nameCheck = (name) => {
@@ -149,7 +158,8 @@ const Registration = () => {
       !confirmPassError &&
       name &&
       email &&
-      password
+      password &&
+      confirmPass
     ) {
       await createUserWithEmailAndPassword(email, password);
       await updateProfile({ displayName: name });

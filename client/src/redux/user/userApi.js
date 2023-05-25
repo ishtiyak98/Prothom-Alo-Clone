@@ -13,7 +13,6 @@ export const userApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
           const result = await queryFulfilled;
-          console.log("red:", result.data.data.token);
           if (result.data.success) {
             localStorage.setItem("token", result.data.data.token);
           }
@@ -34,7 +33,6 @@ export const userApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          console.log("red:", result.data.data.token);
           if (result.data.success) {
             dispatch(userLoggedIn(result.data.data.result));
             localStorage.setItem("auth_token", result.data.data.token);
@@ -60,7 +58,6 @@ export const userApi = apiSlice.injectEndpoints({
             dispatch(userLoggedIn(result.data.data));
           }
         } catch (error) {
-          // console.log(error);
           // Swal.fire({
           //   icon: "error",
           //   title: error.error.data.message,

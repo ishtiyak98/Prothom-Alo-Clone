@@ -25,7 +25,6 @@ const Login = () => {
   const [emailError, setEmailError] = useState("");
   const [passError, setPassError] = useState("");
   const [passShow, setPassShow] = useState(false);
-  const [register, { isSuccess }] = useRegisterMutation();
 
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
@@ -38,12 +37,10 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
-    if (error || errorGoogle) {
-      console.log(error || errorGoogle);
-    } else if (user) {
+     if (user) {
       signUp({
-        name: user.displayName,
-        email: user.email,
+        name: user.user.displayName,
+        email: user.user.email,
       });
       navigate(from, { replace: true });
     } else if (userGoogle) {
@@ -103,7 +100,6 @@ const Login = () => {
     passEmptyCheck(password);
 
     if (!emailError && !passError && email && password) {
-      console.log(formData);
       signInWithEmailAndPassword(email, password);
     }
   };

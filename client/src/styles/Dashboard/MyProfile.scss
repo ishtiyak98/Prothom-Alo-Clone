@@ -1,0 +1,20 @@
+@import "../config";
+@import "../mixins/responsive";
+
+.myProfile-container {
+    .heading-text {
+        font-size: 26px;
+        color: black;
+        margin-bottom: 20px;
+    }
+
+    .profile-info {
+        padding: 30px;
+        background-color: white;
+        border-radius: 4px;
+        box-shadow: 1px 1px 7px rgba(154, 154, 204, 0.1);
+        @apply space-y-4;
+        p {
+        }
+    }
+}
