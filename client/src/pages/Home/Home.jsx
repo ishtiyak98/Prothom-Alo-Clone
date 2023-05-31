@@ -6,20 +6,22 @@ import Sidebar from "../../components/Navbar/Sidebar";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import BulletinNews from "../../components/HomeComponents/BulletinNews/BulletinNews";
+import Footer from "../../components/Footer/Footer";
 
 const Home = () => {
-  const {showSidebar} = useSelector(state => state.sidebar)
+  const { showSidebar } = useSelector((state) => state.sidebar);
   const [showSideNav, setSideNav] = useState(false);
-  useEffect(()=>{
-    setSideNav(showSidebar)
+  useEffect(() => {
+    setSideNav(showSidebar);
   }, [showSidebar]);
   return (
     <>
       <Navbar></Navbar>
       <NavItems></NavItems>
-      <section className="max-w-[1280px] mx-auto h-[2000px]">
+      <section className="max-w-[1280px] mx-auto ">
         <BulletinNews></BulletinNews>
       </section>
+      <Footer></Footer>
       {showSideNav && <Sidebar></Sidebar>}
     </>
   );

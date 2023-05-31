@@ -1,5 +1,4 @@
 import React from "react";
-import { HiMenu } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleDashboardSidebar } from "../../../redux/sidebar/sidebarSlice";
 import Logo from "../../../assets/logo/prothomalo_logo_eng.png";
@@ -11,6 +10,7 @@ import { userLogOut } from "../../../redux/user/userSlice";
 import "../../../styles/Dashboard/DashboardNav.scss";
 import LoadingSpinner from "../../LoadingSpinner/LoadingSpinner";
 import CustomModal from "../../CustomModal/CustomModal";
+import { BiMenu } from "react-icons/bi";
 
 const DashboardNav = () => {
   const { user } = useSelector((state) => state.userSlice);
@@ -45,10 +45,10 @@ const DashboardNav = () => {
       )}
       <div className="flex items-center space-x-8">
         <div>
-          <HiMenu
-            className="text-2xl cursor-pointer"
+          <BiMenu
+            className="text-3xl cursor-pointer"
             onClick={() => dispatch(toggleDashboardSidebar())}
-          ></HiMenu>
+          ></BiMenu>
         </div>
         <div className="mt-1">
           <Link to={"/"}>

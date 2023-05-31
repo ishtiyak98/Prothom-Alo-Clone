@@ -12,9 +12,12 @@
         padding: 30px;
         background-color: white;
         border-radius: 4px;
+        font-size: 16px;
         box-shadow: 1px 1px 7px rgba(154, 154, 204, 0.1);
-        @apply space-y-4;
-        p {
-        }
+        @apply space-y-4 lg:space-y-6;
+
+        @include lg {
+            font-size: 20px;
+        };
     }
 }
