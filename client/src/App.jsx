@@ -25,6 +25,7 @@ function App() {
   const {
     data: findUser,
     isLoading,
+    isSuccess,
     isError,
   } = useFindUserDataQuery(user?.email, { skip: !user?.email });
 
@@ -49,7 +50,7 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute isLoading={isLoading} isSuccess={isSuccess}>
               <Dashboard></Dashboard>
             </ProtectedRoute>
           }

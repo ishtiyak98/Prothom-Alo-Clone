@@ -4,20 +4,20 @@ import { Navigate, useLocation } from "react-router-dom";
 import { auth } from "../../firebase.init";
 import { useAuthState } from "react-firebase-hooks/auth";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import Swal from "sweetalert2";
 
-const ProtectedRoute = ({ children }) => {
-  //const { user } = useSelector((state) => state.userSlice);
+const ProtectedRoute = ({ isLoading, isSuccess, children }) => {
   const [user, loading] = useAuthState(auth);
   const location = useLocation();
-  if (loading) {
+  if (loading || isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
 
-  if (!user?.email) {
+  if (!user?.email || !isSuccess) {
     return <Navigate to="/login" state={{ from: location }} replace />;
+  } else {
+    return children;
   }
-
-  return children;
 };
 
 export default ProtectedRoute;

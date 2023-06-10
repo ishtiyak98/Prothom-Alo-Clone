@@ -82,7 +82,7 @@
         }
         .download-app-icon-container {
             display: flex;
-            align-items: end;
+            align-items: flex-end;
             justify-content: center;
             @apply space-x-3;
             .img-wrapper {

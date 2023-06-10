@@ -109,11 +109,11 @@ const Footer = () => {
         </div>
       </div>
       <hr />
-      <div className="my-[20px] text-center space-x-8 font-serif">
-        <Link to={"/"}>Advertise</Link>
-        <Link to={"/"}>Terms of Use</Link>
-        <Link to={"/"}>Privacy Policy</Link>
-        <Link to={"/"}>Contact Us</Link>
+      <div className="my-[18px] flex flex-wrap space-x-4 lg:space-x-8 justify-center font-serif">
+        <Link className="block my-2" to={"/"}>Advertise</Link>
+        <Link className="block my-2" to={"/"}>Terms of Use</Link>
+        <Link className="block my-2" to={"/"}>Privacy Policy</Link>
+        <Link className="block my-2" to={"/"}>Contact Us</Link>
       </div>
       <hr />
       <div className="mt-[20px] flex flex-col lg:flex-row justify-center space-x-1">

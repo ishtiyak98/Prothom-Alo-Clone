@@ -113,3 +113,18 @@ module.exports.userToDB = async (req, res) => {
     });
   } catch (error) {}
 };
+
+
+//!-------- EDIT User Profile ---------
+// module.exports.editUserInfo = async (req, res) => {
+//   try {
+//     const result = await User.findOneAndUpdate(
+//       { email: req.body.email },
+//       { email: user.email, name: user.name },
+//       {
+//         new: true,
+//         upsert: true,
+//       }
+//     );
+//   } catch (error) {}
+// };
